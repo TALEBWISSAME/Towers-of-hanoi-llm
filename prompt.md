@@ -460,3 +460,145 @@ Cet exercice m'a permis de comprendre comment utiliser un LLM pour améliorer l'
 J'ai appris à demander plusieurs propositions, à choisir celle qui me convient et à imposer des contraintes précises sur les fichiers à modifier.
 
 J'ai également compris qu'il est important de tester le jeu après chaque modification, même lorsqu'on change uniquement le CSS.
+## Exercice 5 — Démo automatique
+
+### Prompt n°5 — Implémentation de la démonstration automatique
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Ajouter une démonstration automatique qui résout le jeu des Tours de Hanoï grâce à un algorithme récursif.
+
+### Texte du prompt
+
+Tu es un développeur web front-end.
+
+Je suis étudiante en informatique et je réalise un TP de No-code et Low-code. Je développe progressivement le jeu des Tours de Hanoï avec HTML, CSS et JavaScript purs.
+
+Les exercices 1 à 4 sont terminés. Mon jeu possède déjà trois tours, une génération dynamique des anneaux, des déplacements manuels et une interface améliorée.
+
+Pour l'exercice 5, je veux ajouter une démonstration automatique qui résout le jeu.
+
+Voici les fonctionnalités demandées :
+
+- Ajouter un bouton « Démo automatique ».
+- Lorsqu'on clique sur ce bouton, démarrer une nouvelle partie avec le nombre d'anneaux choisi.
+- Utiliser l'algorithme récursif des Tours de Hanoï.
+- Créer une fonction `resoudre(n, de, vers, via)` qui renvoie la liste des déplacements sous forme de couples `[de, vers]`.
+- Cette fonction doit uniquement calculer les déplacements, sans modifier l'affichage.
+- Créer une deuxième fonction qui exécute les déplacements un par un avec un délai, par exemple avec `setTimeout`.
+- Après la démonstration, tous les anneaux doivent se trouver sur la troisième tour.
+- Pendant la démonstration, empêcher les déplacements manuels.
+- Si l'utilisateur clique sur « Démarrer » pendant la démonstration, arrêter l'animation et réinitialiser le jeu.
+
+Contraintes techniques :
+
+- Conserver les trois fichiers existants : `index.html`, `style.css` et `script.js`.
+- Ne pas utiliser de bibliothèque ou de framework.
+- Conserver les fonctionnalités des exercices précédents.
+- Utiliser les trois tableaux JavaScript pour représenter l'état du jeu.
+- Continuer à utiliser la fonction `rendre()` pour actualiser l'affichage.
+- Garder un code simple, lisible et adapté à une étudiante en informatique.
+- Ne pas ajouter de fonctionnalités non demandées.
+- Ne pas modifier le fichier `prompt.md`.
+
+Modifie uniquement les fichiers nécessaires et vérifie le fonctionnement du programme.
+
+### Résultat obtenu
+
+**Statut : Fonctionne.**
+
+Copilot a ajouté la démonstration automatique dans le jeu.
+
+Les modifications concernent principalement :
+
+- `index.html` : ajout du bouton « Démo automatique ».
+- `script.js` : ajout de l'algorithme récursif et de l'exécution automatique des déplacements.
+- `style.css` : aucune modification nécessaire.
+
+Deux fonctions distinctes ont été utilisées :
+
+- `resoudre(n, de, vers, via)` : calcule la liste des déplacements nécessaires.
+- `executerCoups()` : effectue les déplacements progressivement avec un délai de 600 ms.
+
+Le jeu conserve les fonctionnalités précédentes.
+
+### Tests effectués
+
+**Test 1 — Algorithme récursif**
+
+Dans la console du navigateur, j'ai exécuté :
+
+`resoudre(3, 0, 2, 1).length`
+
+Résultat obtenu : **7**.
+
+Ce résultat correspond au nombre minimal de déplacements pour trois anneaux.
+
+**Test 2 — Démonstration automatique**
+
+J'ai choisi trois anneaux, puis cliqué sur « Démo automatique ».
+
+Les anneaux se déplacent progressivement et arrivent sur la troisième tour.
+
+**Résultat : Fonctionne.**
+
+**Test 3 — Vérifications réalisées par Copilot**
+
+Copilot a indiqué avoir testé :
+
+- Le calcul des déplacements pour 1 à 8 anneaux.
+- Le respect des règles de déplacement.
+- Le blocage des clics manuels pendant la démonstration.
+- L'arrêt de la démonstration avec le bouton « Démarrer ».
+
+Ces vérifications ont été annoncées par Copilot. La démonstration visuelle et le résultat de sept déplacements ont également été vérifiés dans le navigateur.
+
+### Bugs et problèmes observés
+
+Lors des premiers essais dans la console, j'ai obtenu deux erreurs `SyntaxError` à cause de commandes mal saisies.
+
+Après avoir corrigé la saisie, la commande `resoudre(3, 0, 2, 1).length` a correctement renvoyé `7`.
+
+Ces erreurs ne provenaient pas de l'algorithme.
+
+La démonstration automatique fonctionne dans le navigateur.
+
+**Nombre de reformulations nécessaires : 0.**
+
+Aucun deuxième prompt de correction n'a été nécessaire pour obtenir une démonstration fonctionnelle.
+
+---
+
+### Questions du professeur
+
+**Question A — Envoyer d'abord le prompt sans donner l'algorithme : le LLM le connaît-il ? Est-il correct ?**
+
+Oui, Copilot a proposé l'algorithme récursif classique des Tours de Hanoï sans que je lui fournisse son pseudo-code.
+
+L'algorithme consiste à déplacer les `n-1` premiers anneaux vers la tour intermédiaire, déplacer le plus grand anneau vers la tour d'arrivée, puis déplacer les `n-1` anneaux vers la tour d'arrivée.
+
+J'ai vérifié son fonctionnement avec trois anneaux : la fonction renvoie sept déplacements, ce qui correspond à la formule `2^n - 1`.
+
+La démonstration permet également de déplacer tous les anneaux vers la troisième tour.
+
+**Question B — Pourquoi séparer le calcul de la liste des coups de leur exécution animée ? Que se passe-t-il si l'utilisateur clique sur « Démarrer » pendant la démo, et comment le LLM a-t-il traité ce cas ?**
+
+Il est important de séparer le calcul des déplacements et leur animation pour avoir un programme plus clair et plus facile à tester.
+
+La fonction `resoudre()` calcule uniquement les déplacements, tandis que `executerCoups()` les réalise progressivement à l'écran.
+
+Cette séparation permet de vérifier l'algorithme sans avoir besoin de lancer l'animation.
+
+Si l'utilisateur clique sur « Démarrer » pendant la démonstration, le programme annule l'animation en cours et réinitialise le jeu.
+
+Copilot a prévu ce comportement pour éviter que les déplacements automatiques continuent après le démarrage d'une nouvelle partie.
+
+---
+
+### Bilan de l'exercice 5
+
+Cet exercice m'a permis de comprendre comment utiliser un algorithme récursif pour résoudre automatiquement les Tours de Hanoï.
+
+J'ai également appris l'intérêt de séparer le calcul des déplacements de leur affichage animé.
+
+L'utilisation de Copilot m'a aidée à intégrer cette nouvelle fonctionnalité tout en conservant les exercices précédents.
