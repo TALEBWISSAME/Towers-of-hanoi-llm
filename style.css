@@ -32,6 +32,7 @@ main {
   justify-content: flex-start;
   width: 120px;
   height: 170px;
+  cursor: pointer;
 }
 
 .tour::before {
@@ -67,6 +68,16 @@ main {
   color: #222;
   font-size: 0.75rem;
   line-height: 18px;
+}
+
+.anneau-selectionne {
+  outline: 3px solid #1976d2;
+  outline-offset: 2px;
+}
+
+.tour-refusee::before,
+.tour-refusee .anneau:last-child {
+  background-color: #c62828;
 }
 
 .commandes {

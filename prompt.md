@@ -178,3 +178,116 @@ Lorsqu'une valeur incorrecte comme 12 est saisie, le programme affiche un messag
 ### Bilan de l'exercice 2
 
 Cet exercice m'a permis de comprendre comment générer des éléments HTML dynamiquement avec JavaScript. J'ai également appris à séparer les données du jeu de leur affichage et à vérifier les valeurs saisies par l'utilisateur.
+
+## Exercice 3 — Déplacement des anneaux
+
+### Prompt n°3 — Gestion des déplacements manuels
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Permettre à l'utilisateur de déplacer les anneaux entre les trois tours avec la souris, en respectant les règles du jeu des Tours de Hanoï.
+
+### Texte du prompt
+
+Tu es un développeur web front-end.
+
+Je suis étudiante en informatique et je réalise un TP de No-code et Low-code. Je développe progressivement le jeu des Tours de Hanoï avec HTML, CSS et JavaScript, en utilisant GitHub Copilot.
+
+Les exercices 1 et 2 sont déjà terminés et fonctionnent.
+
+Mon projet contient trois fichiers :
+- `index.html` : structure de la page.
+- `style.css` : apparence des tours et des anneaux.
+- `script.js` : gestion de l'état du jeu et génération des anneaux.
+
+Pour l'exercice 3, je veux permettre à l'utilisateur de déplacer les anneaux à la souris.
+
+Fonctionnalités demandées :
+
+1. Un premier clic sur une tour contenant des anneaux sélectionne uniquement l'anneau du sommet.
+2. L'anneau sélectionné doit être visuellement mis en évidence.
+3. Un deuxième clic sur une autre tour déplace l'anneau si le déplacement est autorisé.
+4. Il est interdit de placer un grand anneau sur un anneau plus petit.
+5. Il est interdit de déplacer un anneau depuis une tour vide.
+6. Un clic sur la même tour annule la sélection.
+7. Si le déplacement est interdit, l'état du jeu ne doit pas changer et un retour visuel doit apparaître.
+8. Le bouton Démarrer doit toujours permettre de recommencer une partie.
+
+Contraintes techniques :
+
+- Utiliser uniquement HTML, CSS et JavaScript purs.
+- Conserver les trois fichiers séparés.
+- Garder le code simple, lisible et adapté à un étudiant.
+- Conserver l'état du jeu dans le tableau JavaScript `tours`.
+- Utiliser la fonction `rendre()` pour actualiser l'affichage.
+- Créer une fonction `deplacementValide(de, vers)` qui vérifie les règles sans accéder au DOM.
+- Ne pas utiliser le DOM comme source de vérité.
+- Ne pas ajouter de compteur, de score ou de détection de victoire : ces fonctionnalités seront développées plus tard.
+- Ne pas modifier les fonctionnalités des exercices précédents.
+- Ne pas modifier le fichier `prompts.md`.
+
+Modifie uniquement les fichiers nécessaires et conserve une logique JavaScript simple.
+
+### Résultat obtenu
+
+**Statut : Fonctionne.**
+
+Copilot a modifié les fichiers `script.js` et `style.css`.
+
+- `script.js` : ajoute la sélection des anneaux, la vérification des déplacements et la mise à jour des trois piles.
+- `style.css` : ajoute une mise en évidence de l'anneau sélectionné et un retour visuel lorsqu'un déplacement est refusé.
+- `index.html` : reste inchangé.
+
+La fonction `deplacementValide(de, vers)` vérifie les règles du jeu sans utiliser directement les éléments HTML.
+
+### Tests effectués
+
+- Sélection d'un anneau au sommet d'une tour : fonctionne.
+- Déplacement d'un petit anneau vers une tour vide : fonctionne.
+- Tentative de placement d'un grand anneau sur un petit : refusée.
+- Annulation de la sélection en cliquant sur la même tour : fonctionne.
+- Redémarrage d'une partie : fonctionne.
+- Conservation de l'état du jeu dans les tableaux JavaScript : respectée.
+- Console du navigateur : aucune erreur JavaScript observée.
+
+**Problème rencontré pendant les tests :**
+
+Au début, les clics sur les anneaux ne semblaient pas fonctionner.
+
+Après avoir actualisé la page avec `Ctrl + F5`, la nouvelle version du JavaScript a été chargée et les déplacements ont fonctionné correctement.
+
+Il s'agissait donc d'un problème d'actualisation du navigateur, et non d'une erreur dans la logique du jeu.
+
+### Bugs et reformulations
+
+**Nombre de reformulations nécessaires : 0.**
+
+Aucun nouveau prompt de correction n'a été nécessaire.
+
+---
+
+### Questions du professeur
+
+**Question A — Comment vérifier que seuls les anneaux du sommet peuvent être déplacés ?**
+
+La sélection se fait au niveau de la tour et concerne uniquement son dernier anneau, c'est-à-dire celui du sommet de la pile JavaScript.
+
+Les anneaux situés en dessous ne peuvent donc pas être déplacés directement.
+
+**Question B — Pourquoi séparer la fonction `deplacementValide(de, vers)` de l'affichage ?**
+
+Cette séparation permet de vérifier les règles du jeu indépendamment de l'interface.
+
+La fonction travaille uniquement avec les tableaux JavaScript. Elle est donc plus simple à comprendre, à tester et à réutiliser.
+
+La fonction `rendre()` s'occupe uniquement de l'affichage des anneaux.
+
+---
+
+### Bilan de l'exercice 3
+
+Cet exercice m'a permis de comprendre comment gérer les interactions de l'utilisateur avec JavaScript.
+
+J'ai appris à sélectionner un anneau, à vérifier si un déplacement est autorisé et à mettre à jour l'affichage à partir de l'état du jeu.
+
+J'ai également compris l'importance de séparer la logique du jeu de son interface et de vérifier que le navigateur utilise bien la dernière version du code.
