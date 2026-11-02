@@ -291,3 +291,172 @@ Cet exercice m'a permis de comprendre comment gérer les interactions de l'utili
 J'ai appris à sélectionner un anneau, à vérifier si un déplacement est autorisé et à mettre à jour l'affichage à partir de l'état du jeu.
 
 J'ai également compris l'importance de séparer la logique du jeu de son interface et de vérifier que le navigateur utilise bien la dernière version du code.
+
+## Exercice 4 — Améliorations visuelles
+
+### Prompt n°4 — Proposition de deux styles graphiques
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Améliorer l'apparence du jeu des Tours de Hanoï sans modifier son fonctionnement, en comparant deux propositions de style.
+
+### Texte du prompt
+
+Tu es un développeur web front-end.
+
+Je suis étudiante en informatique et je réalise un TP de No-code et Low-code sur le jeu des Tours de Hanoï.
+
+Les exercices 1, 2 et 3 sont terminés et fonctionnent correctement.
+
+Mon projet contient trois fichiers :
+- `index.html` : structure HTML du jeu.
+- `style.css` : apparence du jeu.
+- `script.js` : logique du jeu, gestion des anneaux et déplacements.
+
+**Exercice 4 — Améliorations visuelles**
+
+Je souhaite améliorer l'interface du jeu sans modifier son fonctionnement.
+
+Avant de modifier les fichiers, propose-moi deux styles différents :
+
+1. **Style moderne et élégant** : couleurs pastel, fond clair, coins arrondis, ombres légères et présentation soignée.
+2. **Style ludique et coloré** : couleurs plus vives, interface dynamique et présentation adaptée à un jeu.
+
+Pour chaque proposition, donne une courte description des couleurs, du fond, des anneaux et des boutons.
+
+Ne modifie encore aucun fichier. Attends que je choisisse une des deux propositions.
+
+Après mon choix, tu devras respecter les contraintes suivantes :
+
+- Chaque anneau doit avoir une couleur distincte.
+- L'anneau sélectionné doit être clairement visible.
+- Ajouter des transitions CSS simples et discrètes.
+- Améliorer la mise en page et les boutons.
+- Adapter l'interface aux fenêtres étroites.
+- Conserver les trois tours côte à côte.
+- Ne pas modifier la logique des déplacements.
+- Ne pas modifier `script.js` ni `index.html`.
+- Modifier uniquement `style.css`.
+- Ne pas utiliser de bibliothèque ou de framework.
+- Garder un CSS simple, lisible et compréhensible pour un étudiant.
+- Ne pas modifier `prompts.md`.
+- Ne pas ajouter de fonctionnalités non demandées.
+
+Présente les deux propositions de style de manière claire et numérotée, puis attends ma réponse.
+
+### Résultat du prompt n°4
+
+Copilot a proposé deux styles :
+
+**Proposition 1 — Moderne et élégant**
+
+Fond clair légèrement pastel, panneaux blancs avec des coins arrondis et des ombres discrètes. Anneaux aux couleurs pastel distinctes, sélection bien visible et boutons sobres.
+
+**Proposition 2 — Ludique et coloré**
+
+Fond lumineux, couleurs plus vives, présentation joyeuse, anneaux colorés et boutons plus dynamiques.
+
+**Choix effectué :** proposition 1, moderne et élégant.
+
+Copilot a présenté les deux propositions avant de modifier les fichiers, conformément à la demande.
+
+---
+
+### Prompt n°5 — Application du style choisi
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Appliquer le style moderne et élégant à l'interface du jeu.
+
+### Texte du prompt
+
+Je choisis la proposition 1 : **Moderne et élégant**.
+
+Applique ce style au jeu des Tours de Hanoï en respectant les contraintes définies précédemment.
+
+Je souhaite :
+- Un fond clair avec des couleurs pastel.
+- Une présentation moderne et soignée.
+- Des anneaux de couleurs différentes.
+- Une sélection clairement visible.
+- Des transitions CSS discrètes.
+- Des boutons arrondis.
+- Une interface lisible sur une fenêtre étroite.
+
+**Contraintes importantes :**
+- Modifie uniquement `style.css`.
+- Ne modifie pas `index.html`, `script.js` ou `prompts.md`.
+- Ne change aucune règle du jeu.
+- Conserve les fonctionnalités des exercices précédents.
+- Utilise uniquement du CSS simple, sans bibliothèque.
+
+### Résultat du prompt n°5
+
+**Statut : Fonctionne.**
+
+Copilot a appliqué le style moderne et élégant dans `style.css`.
+
+Les modifications comprennent :
+- Des couleurs pastel différentes pour les anneaux.
+- Une mise en évidence plus visible de l'anneau sélectionné.
+- Des transitions CSS discrètes.
+- Une amélioration de la présentation du plateau et des boutons.
+- Une adaptation aux fenêtres étroites, avec défilement horizontal du plateau si nécessaire.
+
+Copilot a confirmé que seul `style.css` avait été modifié.
+
+La logique JavaScript est restée inchangée.
+
+### Tests effectués
+
+- Le jeu s'affiche avec le nouveau style : fonctionne.
+- Les anneaux ont des couleurs différentes : fonctionne.
+- La sélection d'un anneau reste visible : fonctionne.
+- Les déplacements des anneaux continuent de fonctionner : fonctionne.
+- Les règles du jeu sont conservées : fonctionne.
+- L'interface reste adaptée aux fenêtres étroites : prise en charge par le CSS.
+- La syntaxe JavaScript a été vérifiée par Copilot.
+
+Le résultat a été testé dans le navigateur et le fonctionnement général a été confirmé.
+
+### Bugs et problèmes observés
+
+Aucun bug fonctionnel n'a été signalé après l'application du nouveau style.
+
+Copilot n'a pas modifié les fichiers HTML et JavaScript.
+
+**Nombre de reformulations correctives nécessaires : 0.**
+
+Le deuxième prompt correspond au choix du style demandé par le professeur, et non à une correction d'erreur.
+
+---
+
+### Questions du professeur
+
+**Question A — Le LLM a-t-il modifié `script.js` alors que seul le style était demandé ? Quelle contrainte ajouter au prompt pour l'en empêcher ?**
+
+Non, Copilot a respecté la consigne et a modifié uniquement `style.css`.
+
+Pour éviter toute modification inutile, j'ai précisé dans mon prompt : « Modifie uniquement `style.css`. Ne modifie pas `index.html`, `script.js` ou `prompts.md`. »
+
+Cette contrainte permet de conserver la logique du jeu et de limiter les risques de bugs.
+
+**Question B — Demander deux propositions de style différentes dans un même prompt, puis en retenir une : en quoi le format de réponse demandé change-t-il la qualité du résultat ?**
+
+J'ai demandé à Copilot de présenter deux styles numérotés avec une description des couleurs, du fond, des anneaux et des boutons.
+
+Ce format m'a permis de comparer facilement les propositions avant de choisir.
+
+J'ai retenu le style moderne et élégant, car il correspondait à l'apparence que je souhaitais obtenir.
+
+Un format de réponse précis permet donc d'avoir un résultat plus organisé et mieux adapté à la demande.
+
+---
+
+### Bilan de l'exercice 4
+
+Cet exercice m'a permis de comprendre comment utiliser un LLM pour améliorer l'apparence d'une application sans modifier son fonctionnement.
+
+J'ai appris à demander plusieurs propositions, à choisir celle qui me convient et à imposer des contraintes précises sur les fichiers à modifier.
+
+J'ai également compris qu'il est important de tester le jeu après chaque modification, même lorsqu'on change uniquement le CSS.
