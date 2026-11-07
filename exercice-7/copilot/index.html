@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ff">
+  <title>Les Tours de Hanoï</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="application">
+    <header class="entete">
+      <div>
+        <p class="surtitre">Jeu de réflexion</p>
+        <h1>Les Tours de Hanoï</h1>
+        <p class="introduction">Déplacez les anneaux un par un et reconstituez la tour.</p>
+      </div>
+      <button id="btn-theme" class="bouton bouton-secondaire bouton-theme" type="button" aria-pressed="false">
+        <span aria-hidden="true">☾</span> Mode sombre
+      </button>
+    </header>
+
+    <section class="panneau-commandes" aria-label="Commandes de la partie">
+      <label for="nb-anneaux">Nombre d’anneaux</label>
+      <input id="nb-anneaux" name="nb-anneaux" type="number" min="1" max="8" step="1" value="3">
+      <button id="btn-demarrer" class="bouton bouton-principal" type="button">Démarrer</button>
+      <button id="btn-reset" class="bouton bouton-secondaire" type="button">Réinitialiser</button>
+      <button id="btn-demo" class="bouton bouton-demo" type="button">Démo automatique</button>
+    </section>
+
+    <section class="panneau-score" aria-label="Statistiques de la partie">
+      <div class="statistique">
+        <span class="libelle-statistique">Coups</span>
+        <strong id="compteur-coups">0</strong>
+      </div>
+      <div class="statistique">
+        <span class="libelle-statistique">Minimum</span>
+        <strong><span id="minimum-coups">7</span> coups</strong>
+      </div>
+      <div class="statistique">
+        <span class="libelle-statistique">Score</span>
+        <strong id="score">0&nbsp;%</strong>
+      </div>
+    </section>
+
+    <p id="message" class="message" role="status" aria-live="polite">Choisissez une tour pour sélectionner un anneau.</p>
+
+    <section id="plateau" aria-label="Plateau des Tours de Hanoï">
+      <button class="tour" type="button" data-tour="0" aria-label="Tour 1">
+        <span class="tige" aria-hidden="true"></span>
+        <span class="pile" aria-hidden="true"></span>
+        <span class="socle" aria-hidden="true"></span>
+        <span class="nom-tour">Tour 1</span>
+      </button>
+      <button class="tour" type="button" data-tour="1" aria-label="Tour 2">
+        <span class="tige" aria-hidden="true"></span>
+        <span class="pile" aria-hidden="true"></span>
+        <span class="socle" aria-hidden="true"></span>
+        <span class="nom-tour">Tour 2</span>
+      </button>
+      <button class="tour" type="button" data-tour="2" aria-label="Tour 3">
+        <span class="tige" aria-hidden="true"></span>
+        <span class="pile" aria-hidden="true"></span>
+        <span class="socle" aria-hidden="true"></span>
+        <span class="nom-tour">Tour 3</span>
+      </button>
+    </section>
+
+    <p class="consigne">Un anneau ne peut jamais être posé sur un anneau plus petit.</p>
+  </main>
+</body>
+</html>

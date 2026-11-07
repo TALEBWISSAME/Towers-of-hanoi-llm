@@ -602,3 +602,367 @@ Cet exercice m'a permis de comprendre comment utiliser un algorithme récursif p
 J'ai également appris l'intérêt de séparer le calcul des déplacements de leur affichage animé.
 
 L'utilisation de Copilot m'a aidée à intégrer cette nouvelle fonctionnalité tout en conservant les exercices précédents.
+
+## Exercice 6 — Fonctionnalités supplémentaires
+
+### Prompt n°1 — Ajouter un compteur de coups
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Afficher le nombre de déplacements réalisés et le mettre à jour après chaque coup valide.
+
+### Texte du prompt utilisé (extraits)
+
+> Je suis étudiante en informatique et je réalise un TP de No-code et Low-code sur le jeu des Tours de Hanoï.
+>
+> Je commence l'exercice 6, fonctionnalité 1 : le compteur de coups.
+>
+> Ajouter un compteur qui affiche le nombre de déplacements effectués.
+>
+> Augmenter le compteur de 1 après chaque déplacement manuel valide. Augmenter également le compteur de 1 après chaque déplacement effectué pendant la démonstration automatique.
+>
+> Ne pas augmenter le compteur lorsqu'un déplacement est interdit, lorsqu'on sélectionne simplement un anneau ou lorsqu'on annule une sélection.
+>
+> Remettre le compteur à 0 lorsqu'on clique sur « Démarrer » et au lancement d'une nouvelle démonstration automatique. Conserver un compteur JavaScript comme source de vérité, puis actualiser son affichage dans la page.
+>
+> Ne pas modifier le fichier `prompt.md`. À la fin, indique les fichiers modifiés et les tests effectués pour vérifier le compteur.
+
+### Résultat obtenu
+
+**Statut : Fonctionne.**
+
+Copilot a ajouté le compteur sous le plateau. Le nombre de coups est conservé dans une variable JavaScript et son affichage est actualisé après un déplacement manuel valide ou un coup de la démonstration automatique.
+
+Le compteur revient à zéro lorsqu'une nouvelle partie commence ou qu'une nouvelle démonstration est lancée. Les sélections et les déplacements interdits ne le modifient pas.
+
+### Fichiers modifiés
+
+- `index.html` : ajout de l'affichage du compteur.
+- `script.js` : ajout du compteur et de sa mise à jour après les coups.
+- `style.css` : aucune modification.
+
+### Tests effectués
+
+Des tests automatisés avec une simulation du DOM ont vérifié :
+
+- L'affichage initial « Nombre de coups : 0 ».
+- L'incrément après un déplacement manuel valide.
+- L'absence d'incrément lors d'une sélection, d'une annulation ou d'un déplacement interdit.
+- La remise à zéro avec « Démarrer » et lors d'une nouvelle démonstration.
+- Le comptage de chacun des coups de la démonstration et l'arrivée des anneaux sur la troisième tour.
+
+La syntaxe JavaScript et `git diff --check` ont également été vérifiés.
+
+### Bugs et reformulations
+
+**Nombre de reformulations nécessaires : 0.**
+
+Aucun bug n'a été constaté lors des tests du compteur.
+
+---
+
+### Prompt n°2 — Détecter la victoire
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Annoncer la victoire lorsque tous les anneaux ont été déplacés sur la troisième tour, une seule fois par partie.
+
+### Texte du prompt utilisé (extraits)
+
+> Je veux maintenant développer uniquement la fonctionnalité 2 : la détection de la victoire.
+>
+> Détecter automatiquement lorsque tous les anneaux sont placés sur la troisième tour. Afficher un message de félicitations en français. Afficher ce message une seule fois par partie.
+>
+> La victoire doit fonctionner en mode manuel et en démonstration automatique. Ne jamais annoncer une victoire si les anneaux ne sont pas tous sur la troisième tour.
+>
+> Utiliser les trois piles JavaScript comme source de vérité, et non les éléments HTML. Réinitialiser la détection de victoire lors d'une nouvelle partie.
+>
+> Ne pas modifier le fichier `prompt.md`. Après les modifications, vérifie la syntaxe JavaScript et teste la victoire manuelle, la victoire automatique et l'absence de messages répétés.
+
+### Résultat obtenu
+
+**Statut : Fonctionne après correction.**
+
+La détection utilise les trois piles JavaScript. Pour confirmer la victoire, les deux premières piles doivent être vides et la troisième doit contenir tous les anneaux de la partie dans leur ordre correct. La vérification est appelée après un déplacement valide, en mode manuel comme automatique.
+
+Un indicateur empêche d'annoncer plusieurs fois la victoire pendant la même partie. Il est réinitialisé au lancement d'une nouvelle partie.
+
+### Fichiers modifiés
+
+- `script.js` : ajout de la détection et du message de victoire.
+- `index.html` et `style.css` : aucune modification pour cette fonctionnalité.
+
+### Tests effectués
+
+Des tests automatisés avec une simulation des clics et des minuteries ont vérifié :
+
+- L'absence de victoire après six coups avec trois anneaux.
+- La victoire après le septième coup, en mode manuel et en démonstration.
+- L'absence de fausse victoire avec une pile incomplète ou dans le mauvais ordre.
+- L'affichage du message une seule fois par partie et la réinitialisation de l'indicateur.
+- La conservation du compteur et l'arrivée des anneaux sur la troisième tour.
+
+La syntaxe JavaScript et `git diff --check` ont été vérifiés.
+
+### Bug rencontré et prompt de correction
+
+Lors d'un essai dans le navigateur, l'alerte de victoire s'ouvrait avant que l'affichage ait fini de se rafraîchir. La page montrait encore « Nombre de coups : 6 » et l'anneau n°1 sur la première tour, alors que le dernier déplacement venait d'être effectué.
+
+Un prompt de correction a été nécessaire :
+
+> Corrige le bug de détection de victoire dans mon projet Tours de Hanoï.
+>
+> Avec 3 anneaux, pendant la démonstration automatique, le message « Félicitations, vous avez gagné ! » apparaît au 6ᵉ coup, alors que l'anneau 1 est encore sur la première tour.
+>
+> La victoire doit être détectée uniquement lorsque les trois anneaux sont réellement sur la troisième tour. Avec 3 anneaux, le message doit apparaître après le 7ᵉ déplacement, jamais avant.
+>
+> Le compteur doit être mis à jour avant l'annonce de victoire. Vérifie particulièrement l'ordre d'exécution dans `executerCoups()`, les appels à `verifierVictoire()` et les éventuels `setTimeout`.
+
+GitHub Copilot a corrigé le problème en retardant l'alerte de 100 ms avec `setTimeout`. Ce délai laisse au navigateur le temps d'afficher le compteur à 7 et les anneaux sur la troisième tour avant l'ouverture de l'alerte. Le test simulé vérifie que le compteur et les piles sont déjà à jour au moment où le message apparaît.
+
+**Nombre de reformulations nécessaires : 1 prompt de correction.**
+
+---
+
+### Prompt n°3 — Calculer un score
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Afficher le nombre minimal de coups et calculer un score en pourcentage après chaque déplacement valide.
+
+### Texte du prompt utilisé (extraits)
+
+> Je veux que tu ajoutes un système de score basé sur le nombre minimal de coups.
+>
+> Calculer le nombre minimal de coups avec la formule `2 ** n - 1`, où `n` représente le nombre d'anneaux de la partie.
+>
+> `score = (nombreMinimalCoups / compteurCoups) * 100`
+>
+> Arrondir le score à l'entier le plus proche et le limiter à 100 %. Afficher clairement le score et le nombre minimal de coups dans l'interface.
+>
+> Actualiser le score après chaque déplacement valide, en mode manuel comme en démonstration automatique. Si aucun coup n'a encore été effectué, afficher un score de 0 % pour éviter une division par zéro.
+>
+> Réinitialiser le score et le nombre de coups lorsqu'une nouvelle partie commence avec le bouton « Démarrer ». Lorsqu'une partie est gagnée, conserver le score final affiché.
+>
+> Ne pas modifier l'algorithme récursif `resoudre()`, le système de détection de victoire ou le fichier `prompt.md`.
+
+### Résultat obtenu
+
+**Statut : Fonctionne.**
+
+Le nombre minimal de coups est calculé avec `2 ** n - 1`. Le score est recalculé après chaque déplacement valide, arrondi et plafonné à 100 %. Il est remis à zéro au début d'une partie et reste affiché après une victoire.
+
+### Fichiers modifiés
+
+- `index.html` : ajout des affichages du minimum et du score.
+- `script.js` : calcul et mise à jour du score.
+- `style.css` : aucune modification.
+
+### Tests effectués
+
+Les tests automatisés ont vérifié :
+
+- Le minimum de 7 coups avec 3 anneaux et de 31 coups avec 5 anneaux.
+- Un score de 100 % après 7 coups avec 3 anneaux.
+- Un score de 70 % après une séquence de 10 déplacements légaux.
+- Le score en mode manuel et automatique, la remise à zéro et la conservation du score final.
+- La conservation de la victoire et du compteur, et l'absence d'erreurs dans le test JavaScript.
+
+**Précision sur le test à 10 coups :** une victoire en exactement 10 coups avec trois anneaux n'est pas possible selon les règles classiques. Le score de 70 % a donc été testé après dix coups légaux, sans prétendre que la partie était gagnée.
+
+La syntaxe JavaScript et `git diff --check` ont été vérifiés.
+
+### Bugs et reformulations
+
+**Nombre de reformulations nécessaires : 0.**
+
+Aucun bug du calcul de score n'a été constaté.
+
+---
+
+### Prompt n°4 — Ajouter un bouton Reset
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Replacer les anneaux au début de la partie et arrêter les opérations en attente.
+
+### Texte du prompt utilisé (extraits)
+
+> Je veux ajouter un bouton « Reset » dans l'interface, avec les comportements suivants :
+>
+> Le bouton doit remettre les anneaux sur la première tour, dans leur ordre initial, selon le nombre d'anneaux de la partie.
+>
+> Le compteur de coups doit revenir à 0. Le score doit revenir à 0 %. Le nombre minimal de coups doit rester cohérent avec le nombre d'anneaux. Toute sélection d'anneau doit être annulée.
+>
+> Si une démonstration automatique est en cours, le bouton doit l'arrêter immédiatement et annuler tous les déplacements programmés. Aucune ancienne alerte de victoire ne doit apparaître après Reset.
+>
+> Après Reset, l'utilisateur doit pouvoir jouer normalement ou relancer une démonstration.
+>
+> Réutiliser les fonctions de réinitialisation existantes lorsque c'est possible. Ne pas modifier `prompt.md`.
+
+### Résultat obtenu
+
+**Statut : Fonctionne.**
+
+Le bouton Reset réutilise la fonction d'initialisation de la partie avec le nombre d'anneaux de la partie en cours. Il annule la minuterie de démonstration et l'éventuelle alerte de victoire en attente. L'état des anneaux, la sélection, le compteur et le score sont réinitialisés.
+
+### Fichiers modifiés
+
+- `index.html` : ajout du bouton Reset.
+- `script.js` : gestion du bouton, annulation des minuteries et réinitialisation.
+- `style.css` : aucune modification.
+
+### Tests effectués
+
+Les tests automatisés ont vérifié Reset après des coups manuels, pendant une démonstration, ainsi que l'annulation des déplacements et alertes encore programmés. Ils ont aussi vérifié le retour du compteur et du score à zéro et la reprise du jeu manuel et de la démonstration après Reset.
+
+La syntaxe JavaScript et `git diff --check` ont été vérifiés ; aucune erreur JavaScript n'a été relevée par le test.
+
+### Bugs et reformulations
+
+**Nombre de reformulations nécessaires : 0.**
+
+Le scénario de test a été ajusté pour distinguer le nombre d'anneaux de la partie en cours de la nouvelle valeur saisie dans le champ. Le comportement de Reset était conforme.
+
+---
+
+### Prompt n°5 — Ajouter des animations avancées
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Animer les déplacements en soulevant l'anneau, en le faisant glisser puis en le reposant.
+
+### Texte du prompt utilisé (extraits)
+
+> Ajoute des animations avancées à mon jeu des Tours de Hanoï.
+>
+> Lors de chaque déplacement, l'anneau doit :
+>
+> 1. Se soulever verticalement au-dessus de sa tour.
+> 2. Glisser horizontalement vers la tour de destination.
+> 3. Redescendre doucement à sa nouvelle position.
+>
+> Appliquer les animations aux déplacements manuels et à la démonstration automatique. Conserver toutes les fonctionnalités existantes : compteur, score, victoire, Reset et démo automatique.
+>
+> Empêcher les clics pendant un déplacement animé. Si Reset est utilisé pendant une animation, arrêter celle-ci et remettre correctement le jeu à zéro.
+>
+> Ne pas modifier prompt.md.
+
+### Résultat obtenu
+
+**Statut : Fonctionne dans les tests.**
+
+GitHub Copilot a utilisé l'API JavaScript `element.animate()` avec plusieurs étapes : l'anneau se soulève, glisse en hauteur au-dessus des tours et redescend à sa destination. Les clics sur les tours sont ignorés pendant l'animation. Reset annule l'animation en cours, et la démonstration attend la fin de chaque animation avant de programmer le coup suivant.
+
+### Fichiers modifiés
+
+- `script.js` : calcul des positions, animation, verrouillage des clics et annulation de l'animation.
+- `style.css` et `index.html` : aucune modification pour les animations.
+
+### Tests effectués
+
+Les tests automatisés ont vérifié les étapes et la durée de l'animation, les déplacements manuels et automatiques, le blocage des clics, Reset pendant une animation, l'annulation de la démo, le compteur, le score et la victoire automatique.
+
+La syntaxe JavaScript et `git diff --check` ont été vérifiés ; aucune erreur console n'a été relevée dans ces tests. Ces vérifications n'étaient pas un test visuel manuel dans le navigateur.
+
+### Bugs et reformulations
+
+**Nombre de reformulations nécessaires : 0.**
+
+Les tests ont nécessité d'ajuster leur simulation de fin d'animation, mais aucun prompt de correction du code n'a été nécessaire.
+
+---
+
+### Prompt n°6 — Ajouter le mode sombre et clair
+
+**LLM utilisé :** GitHub Copilot
+
+**Objectif :** Permettre de basculer entre le thème clair existant et un thème sombre.
+
+### Texte du prompt utilisé (extraits)
+
+> Ajoute un mode sombre / clair à mon jeu des Tours de Hanoï.
+>
+> Conserver le thème clair actuel comme thème par défaut. Ajouter un bouton « Mode sombre / Mode clair » facilement accessible.
+>
+> En mode sombre, adapter les couleurs de toute la page : arrière-plan, panneau du jeu, textes, boutons et tours. Conserver des couleurs distinctes et visibles pour les anneaux.
+>
+> Permettre de revenir au thème clair à tout moment. Le thème choisi doit rester actif après un clic sur Reset ou Démarrer.
+>
+> Conserver toutes les fonctionnalités existantes : déplacements manuels, démo automatique, animations, compteur, score, victoire et Reset. Ne pas modifier prompt.md.
+
+### Résultat obtenu
+
+**Statut : Fonctionne dans les tests.**
+
+Un bouton permet de basculer entre les thèmes. Des variables CSS définissent les couleurs claires et sombres ; l'attribut de thème est indépendant de l'état de la partie et reste donc inchangé lors d'un Reset ou d'un démarrage.
+
+Les couleurs distinctes des anneaux sont conservées.
+
+### Fichiers modifiés
+
+- `index.html` : ajout du bouton de thème.
+- `style.css` : définition des couleurs des deux thèmes.
+- `script.js` : basculement du thème et mise à jour de l'état accessible du bouton.
+
+### Tests effectués
+
+Les tests automatisés ont vérifié le thème clair par défaut, le basculement dans les deux sens, la conservation du thème après Démarrer et Reset, les anneaux colorés et le maintien des fonctions de déplacement, de démo, de compteur, de score, de victoire et d'animation.
+
+La syntaxe JavaScript et `git diff --check` ont été vérifiés ; aucune erreur n'a été relevée par le test.
+
+### Bugs et reformulations
+
+**Nombre de reformulations nécessaires : 0.**
+
+Aucun bug n'a été constaté lors des tests du thème.
+
+---
+
+### Questions du professeur
+
+**Question A — Quelle technique le LLM a-t-il choisie pour l'animation ? Justifier ce choix et proposer une alternative.**
+
+GitHub Copilot a utilisé l'API JavaScript `element.animate()`. Les différentes étapes permettent de soulever l'anneau, de le déplacer horizontalement au-dessus des tours et de le redescendre à sa destination.
+
+Cette technique convient ici car elle permet de décrire plusieurs étapes dans une même animation et de lancer le déplacement au moment où un coup est effectué. Une alternative serait d'utiliser des transitions CSS, en modifiant progressivement la position ou la transformation de l'anneau.
+
+**Question B — Quelle fonctionnalité a demandé le plus de reformulations ? Formuler en une phrase ce qui manquait au premier prompt.**
+
+La détection de victoire a demandé une correction. Le premier prompt ne précisait pas que l'alerte devait s'afficher uniquement après la mise à jour visuelle complète du dernier déplacement.
+
+**Question C — Comment le LLM écrit-il `2^n - 1` en JavaScript ? Vérifier pour `n = 8`.**
+
+En JavaScript, l'opérateur de puissance est `**`. L'expression correcte est donc `2 ** n - 1`.
+
+Pour `n = 8`, j'ai personnellement vérifié dans la console du navigateur Edge l'expression `2 ** 8 - 1`. Le résultat obtenu est `255`.
+
+---
+
+### Bilan final de l'exercice 6
+
+Cet exercice m'a appris à ajouter des fonctionnalités progressivement sans remplacer celles qui fonctionnaient déjà. J'ai vu l'importance d'écrire des prompts précis, de tester les cas normaux et les interruptions, puis de corriger les problèmes observés.
+
+J'ai également appris qu'un programme peut avoir le bon état interne sans que le navigateur ait encore affiché le dernier changement. Les tests et la correction de l'alerte m'ont aidée à mieux comprendre l'ordre des mises à jour et l'intérêt de vérifier le résultat visible, pas seulement le code.
+
+## Exercice 8 — Question A : Vérification des commentaires JSDoc
+
+J'ai demandé à GitHub Copilot d'ajouter des commentaires JSDoc aux fonctions de `script.js`.
+
+Après vérification, j'ai relevé une imprécision dans le commentaire de `verifierVictoire()`. Il ne précisait pas suffisamment que la fonction retourne `true` uniquement lors de la première détection d'une victoire.
+
+J'ai demandé à Copilot de corriger ce commentaire en précisant la condition liée à `victoireAnnoncee`, le délai de 100 ms avant l'alerte et les effets de bord sur les variables du jeu.
+
+Cette correction a été réalisée sans modifier les instructions JavaScript.
+
+## Exercice 8 — Question B : Tests automatiques
+
+J'ai demandé à GitHub Copilot de créer deux fichiers, `tests.html` et `tests.js`, afin de tester les fonctions `resoudre()` et `deplacementValide()`.
+
+Pour `resoudre()`, les tests vérifient le nombre de déplacements nécessaires pour 1, 2 et 3 anneaux, ainsi que la validité des déplacements et la position finale.
+
+Pour `deplacementValide()`, les tests vérifient quatre situations : tour de départ vide, déplacement autorisé, grand anneau sur un petit et déplacement vers la même tour.
+
+J'ai ouvert `tests.html` dans mon navigateur et obtenu **7 tests réussis et 0 test échoué**.
+
+Aucun test n'a échoué. Je n'ai donc pas constaté d'erreur dans le code pour les cas testés. Il n'est pas nécessaire de déterminer si le test ou le code est incorrect dans cette situation.

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tests — Tours de Hanoï</title>
+  <style>
+    body {
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: #263238;
+      font-family: Arial, sans-serif;
+    }
+
+    li {
+      margin: 0.5rem 0;
+    }
+
+    .reussi {
+      color: #187443;
+    }
+
+    .echoue {
+      color: #b42318;
+    }
+
+    #elements-jeu {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tests automatiques — Tours de Hanoï</h1>
+    <ul id="resultats" aria-live="polite"></ul>
+    <p id="bilan" aria-live="polite">Tests en cours…</p>
+  </main>
+
+  <div id="elements-jeu" aria-hidden="true">
+    <label for="nb-anneaux">Nombre d'anneaux</label>
+    <input id="nb-anneaux" type="number" value="3">
+    <button id="btn-demarrer" type="button">Démarrer</button>
+    <button id="btn-demo" type="button">Démo automatique</button>
+    <button id="btn-reset" type="button">Reset</button>
+    <button id="btn-theme" type="button">Changer de thème</button>
+    <span id="compteur-coups"></span>
+    <span id="coups-minimum"></span>
+    <span id="score"></span>
+    <div class="tour"></div>
+    <div class="tour"></div>
+    <div class="tour"></div>
+  </div>
+
+  <script src="../hanoi/script.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>
