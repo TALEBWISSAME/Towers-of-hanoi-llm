@@ -2,6 +2,51 @@
   font-family: Arial, sans-serif;
   color: #343342;
   background-color: #f5f3f8;
+  --page-start: #f8f6fb;
+  --page-end: #edf4f3;
+  --text-color: #343342;
+  --panel-color: #fff;
+  --panel-border: #ebe7f0;
+  --panel-shadow: rgb(64 53 81 / 8%);
+  --board-color: #fbfaff;
+  --board-border: #eeeaf2;
+  --board-shadow: rgb(64 53 81 / 4%);
+  --tower-color: #aaa1ba;
+  --button-color: #81739f;
+  --button-hover: #6e608b;
+  --button-border: #81739f;
+  --input-color: #fff;
+  --input-border: #dcd6e6;
+  --focus-color: #b5a7d2;
+  --selected-color: #65558c;
+  --selected-shadow: rgb(81 66 117 / 24%);
+  --button-shadow: rgb(81 66 117 / 18%);
+  --refused-color: #d6757e;
+}
+
+:root[data-theme="dark"] {
+  color: #eeeaf5;
+  background-color: #17151e;
+  --page-start: #1b1924;
+  --page-end: #202b2c;
+  --text-color: #eeeaf5;
+  --panel-color: #292633;
+  --panel-border: #403b4c;
+  --panel-shadow: rgb(0 0 0 / 28%);
+  --board-color: #211f2b;
+  --board-border: #403b4c;
+  --board-shadow: rgb(0 0 0 / 18%);
+  --tower-color: #9389a5;
+  --button-color: #75658f;
+  --button-hover: #8a79a7;
+  --button-border: #9483b2;
+  --input-color: #211f2b;
+  --input-border: #5b536b;
+  --focus-color: #c2b0e5;
+  --selected-color: #d0b9ff;
+  --selected-shadow: rgb(208 185 255 / 28%);
+  --button-shadow: rgb(0 0 0 / 28%);
+  --refused-color: #e7838c;
 }
 
 body {
@@ -9,23 +54,26 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 2rem;
-  background: linear-gradient(135deg, #f8f6fb, #edf4f3);
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--page-start), var(--page-end));
+  transition: color 180ms ease, background 180ms ease;
 }
 
 main {
   max-width: 700px;
   margin: 0 auto;
   padding: 2rem;
-  border: 1px solid #ebe7f0;
+  border: 1px solid var(--panel-border);
   border-radius: 20px;
-  background-color: #fff;
-  box-shadow: 0 12px 32px rgb(64 53 81 / 8%);
+  background-color: var(--panel-color);
+  box-shadow: 0 12px 32px var(--panel-shadow);
   text-align: center;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 h1 {
   margin-top: 0;
-  color: #514968;
+  color: var(--text-color);
 }
 
 #plateau {
@@ -37,10 +85,11 @@ h1 {
   margin: 2rem 0;
   padding: 1rem;
   overflow-x: auto;
-  border: 1px solid #eeeaf2;
+  border: 1px solid var(--board-border);
   border-radius: 16px;
-  background-color: #fbfaff;
-  box-shadow: inset 0 2px 8px rgb(64 53 81 / 4%);
+  background-color: var(--board-color);
+  box-shadow: inset 0 2px 8px var(--board-shadow);
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 .tour {
@@ -62,7 +111,7 @@ h1 {
   width: 8px;
   height: 170px;
   border-radius: 5px 5px 0 0;
-  background-color: #aaa1ba;
+  background-color: var(--tower-color);
   content: "";
   transform: translateX(-50%);
   transition: background-color 180ms ease;
@@ -75,7 +124,7 @@ h1 {
   width: 120px;
   height: 8px;
   border-radius: 4px;
-  background-color: #aaa1ba;
+  background-color: var(--tower-color);
   content: "";
   transform: translateX(-50%);
 }
@@ -126,15 +175,15 @@ h1 {
 
 .anneau-selectionne {
   z-index: 2;
-  outline: 3px solid #65558c;
+  outline: 3px solid var(--selected-color);
   outline-offset: 2px;
-  box-shadow: 0 4px 12px rgb(81 66 117 / 24%);
+  box-shadow: 0 4px 12px var(--selected-shadow);
   transform: translateY(-5px);
 }
 
 .tour-refusee::before,
 .tour-refusee .anneau:last-child {
-  background-color: #d6757e;
+  background-color: var(--refused-color);
 }
 
 .commandes {
@@ -149,34 +198,35 @@ input,
 button {
   box-sizing: border-box;
   padding: 0.65rem 0.9rem;
-  border: 1px solid #dcd6e6;
+  border: 1px solid var(--input-border);
   border-radius: 10px;
   font: inherit;
+  color: var(--text-color);
 }
 
 input {
   width: 5rem;
-  background-color: #fff;
+  background-color: var(--input-color);
 }
 
 input:focus-visible,
 button:focus-visible,
 .tour:focus-visible {
-  outline: 3px solid #b5a7d2;
+  outline: 3px solid var(--focus-color);
   outline-offset: 3px;
 }
 
 button {
-  border-color: #81739f;
-  background-color: #81739f;
+  border-color: var(--button-border);
+  background-color: var(--button-color);
   color: #fff;
   cursor: pointer;
-  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 button:hover {
-  background-color: #6e608b;
-  box-shadow: 0 4px 10px rgb(81 66 117 / 18%);
+  background-color: var(--button-hover);
+  box-shadow: 0 4px 10px var(--button-shadow);
   transform: translateY(-1px);
 }
 

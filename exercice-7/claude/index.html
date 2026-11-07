@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tours de Hanoï</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="entete">
+      <h1>Tours de Hanoï</h1>
+      <button id="btn-theme" class="btn secondaire" type="button" aria-label="Changer de thème">🌙 Mode sombre</button>
+    </header>
+
+    <section class="commandes">
+      <label for="nb-anneaux">Anneaux (1 à 8)</label>
+      <input id="nb-anneaux" type="number" min="1" max="8" value="3">
+      <button id="btn-demarrer" class="btn" type="button">Démarrer</button>
+      <button id="btn-demo" class="btn secondaire" type="button">Démo automatique</button>
+      <button id="btn-reset" class="btn secondaire" type="button">Reset</button>
+    </section>
+
+    <section class="infos" aria-live="polite">
+      <div class="carte">Coups : <strong id="compteur">0</strong></div>
+      <div class="carte">Minimum : <strong id="minimum">7</strong></div>
+      <div class="carte">Score : <strong id="score">0 %</strong></div>
+    </section>
+
+    <p id="message" class="message" aria-live="polite"></p>
+
+    <div id="plateau">
+      <div class="tour" data-index="0" tabindex="0" aria-label="Tour 1"></div>
+      <div class="tour" data-index="1" tabindex="0" aria-label="Tour 2"></div>
+      <div class="tour" data-index="2" tabindex="0" aria-label="Tour 3"></div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
